@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ad_payroll_report,ad.payroll.report,model_ad_payroll_report,base.group_user,1,1,1,1
+

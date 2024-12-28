@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="ad_payroll_report_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2 class="text-center">Payroll Report</h2>
+                    <div class="row mb-4">
+                        <div class="col-6">
+                            <strong>Report Period:</strong>
+                            <t t-esc="start_date"/>
+                            to
+                            <t t-esc="end_date"/>
+                        </div>
+                        <div class="col-6 text-right">
+                            <strong>Total Employees:</strong>
+                            <t t-esc="total_employees"/>
+                        </div>
+                    </div>
+                    <div class="oe_structure"/>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th rowspan="2" class="text-center align-middle">Employee</th>
+                                <th rowspan="2" class="text-center align-middle">Department</th>
+                                <th rowspan="2" class="text-center align-middle">Job Position</th>
+                                <th rowspan="2" class="text-center align-middle">Period</th>
+                                <th colspan="3" class="text-center">Analytic Distribution</th>
+                                <th colspan="3" class="text-center">Wages</th>
+                                <th rowspan="2" class="text-center align-middle">Work Days</th>
+                                <th rowspan="2" class="text-center align-middle">Food Allowance</th>
+                                <th rowspan="2" class="text-center align-middle">Transport Allowance</th>
+                                <th rowspan="2" class="text-center align-middle">Card Allowance</th>
+                                <th rowspan="2" class="text-center align-middle">Salary Advance Paid</th>
+                                <th rowspan="2" class="text-center align-middle">Accommodation</th>
+                            </tr>
+                            <tr>
+                                <th class="text-center">Project</th>
+                                <th class="text-center">Percentage</th>
+                                <th class="text-center">Distribution</th>
+                                <th class="text-center">Basic</th>
+                                <th class="text-center">Gross</th>
+                                <th class="text-center">Net</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="processed_employees" t-value="[]"/>
+                            <t t-foreach="data" t-as="line">
+                                <tr>
+                                    <t t-if="line['Employee'] not in processed_employees">
+                                        <t t-set="employee_lines"
+                                           t-value="[l for l in data if l['Employee'] == line['Employee']]"/>
+                                        <td t-att-rowspan="len(employee_lines)"
+                                            class="align-middle text-center">
+                                            <t t-esc="line['Employee']"/>
+                                        </td>
+                                        <td t-att-rowspan="len(employee_lines)"
+                                            class="align-middle text-center">
+                                            <t t-esc="line['Department']"/>
+                                        </td>
+                                        <td t-att-rowspan="len(employee_lines)"
+                                            class="align-middle text-center">
+                                            <t t-esc="line['Job Position']"/>
+                                        </td>
+                                        <td t-att-rowspan="len(employee_lines)"
+                                            class="align-middle text-center">
+                                            <t t-esc="line['Start Date']"/>
+                                            -
+                                            <t t-esc="line['End Date']"/>
+                                        </td>
+                                        <t t-set="_dummy" t-value="processed_employees.append(line['Employee'])"/>
+                                    </t>
+                                    <td class="text-center">
+                                        <t t-esc="line['analytic']"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-esc="line['analytic_percentage']"/>%
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-esc="line['analytic']"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-esc="'{:.2f}'.format(line['wage']['Basic Wage'])"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-esc="'{:.2f}'.format(line['wage']['Gross Wage'])"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-esc="'{:.2f}'.format(line['wage']['Net Wage'])"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-esc="line['Work Days']"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <t t-esc="line['Work Hours']"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-esc="'{:.2f}'.format(line.get('Food Allowance', 0))"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-esc="'{:.2f}'.format(line.get('Transport Allowance', 0))"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-esc="'{:.2f}'.format(line.get('Card Allowance', 0))"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-esc="'{:.2f}'.format(line.get('Deductions', 0))"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-esc="'{:.2f}'.format(line.get('Salary Advance Paid', 0))"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-esc="'{:.2f}'.format(line.get('Accommodation', 0))"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-esc="'{:.2f}'.format(line.get('Gross Salary', 0))"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <t t-esc="'{:.2f}'.format(line.get('Total Allowance', 0))"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="9" class="text-right">
+                                    <strong>Total Net Wage:</strong>
+                                </td>
+                                <td class="text-right">
+                                    <strong>
+                                        <t t-esc="'{:.2f}'.format(total_net_wage)"/>
+                                    </strong>
+                                </td>
+                                <td colspan="5"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="ad_payroll_report_action" model="ir.actions.report">
+        <field name="name">Advance Payroll Report [PDF]</field>
+        <field name="model">ad.payroll.report</field>
+        <field name="binding_model_id" ref="model_ad_payroll_report"/>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">advicts_payroll_report.ad_payroll_report_template</field>
+        <field name="report_file">advicts_payroll_report.ad_payroll_report_template</field>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="ad_payroll_report_action_xlsx" model="ir.actions.report">
+        <field name="name">Advance Payroll Report [XLSX]</field>
+        <field name="model">ad.payroll.report</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">advicts_payroll_report.ad_payroll_report_xlsx</field>
+        <field name="report_file">advicts_payroll_report.ad_payroll_report_xlsx</field>
+    </record>
+
+</odoo>
