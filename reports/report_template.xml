@@ -13,8 +13,7 @@
                             <t t-esc="end_date"/>
                         </div>
                         <div class="col-6 text-right">
-                            <strong>Total Employees:</strong>
-                            <t t-esc="total_employees"/>
+
                         </div>
                     </div>
                     <div class="oe_structure"/>
@@ -24,8 +23,8 @@
                                 <th rowspan="2" class="text-center align-middle">Employee</th>
                                 <th rowspan="2" class="text-center align-middle">Department</th>
                                 <th rowspan="2" class="text-center align-middle">Job Position</th>
-                                <th rowspan="2" class="text-center align-middle">Period</th>
-                                <th colspan="3" class="text-center">Analytic Distribution</th>
+<!--                                <th rowspan="2" class="text-center align-middle">Period</th>-->
+                                <th colspan="3" class="text-center">Projects</th>
                                 <th colspan="3" class="text-center">Wages</th>
                                 <th rowspan="2" class="text-center align-middle">Work Days</th>
                                 <th rowspan="2" class="text-center align-middle">Food Allowance</th>
@@ -62,12 +61,12 @@
                                             class="align-middle text-center">
                                             <t t-esc="line['Job Position']"/>
                                         </td>
-                                        <td t-att-rowspan="len(employee_lines)"
-                                            class="align-middle text-center">
-                                            <t t-esc="line['Start Date']"/>
-                                            -
-                                            <t t-esc="line['End Date']"/>
-                                        </td>
+<!--                                        <td t-att-rowspan="len(employee_lines)"-->
+<!--                                            class="align-middle text-center">-->
+<!--                                            <t t-esc="line['Start Date']"/>-->
+<!--                                            - -->
+<!--                                            <t t-esc="line['End Date']"/>-->
+<!--                                        </td>-->
                                         <t t-set="_dummy" t-value="processed_employees.append(line['Employee'])"/>
                                     </t>
                                     <td class="text-center">
@@ -91,9 +90,9 @@
                                     <td class="text-center">
                                         <t t-esc="line['Work Days']"/>
                                     </td>
-                                    <td class="text-center">
-                                        <t t-esc="line['Work Hours']"/>
-                                    </td>
+<!--                                    <td class="text-center">-->
+<!--                                        <t t-esc="line['Work Hours']"/>-->
+<!--                                    </td>-->
                                     <td class="text-right">
                                         <t t-esc="'{:.2f}'.format(line.get('Food Allowance', 0))"/>
                                     </td>
@@ -104,26 +103,17 @@
                                         <t t-esc="'{:.2f}'.format(line.get('Card Allowance', 0))"/>
                                     </td>
                                     <td class="text-right">
-                                        <t t-esc="'{:.2f}'.format(line.get('Deductions', 0))"/>
-                                    </td>
-                                    <td class="text-right">
                                         <t t-esc="'{:.2f}'.format(line.get('Salary Advance Paid', 0))"/>
                                     </td>
                                     <td class="text-right">
                                         <t t-esc="'{:.2f}'.format(line.get('Accommodation', 0))"/>
-                                    </td>
-                                    <td class="text-right">
-                                        <t t-esc="'{:.2f}'.format(line.get('Gross Salary', 0))"/>
-                                    </td>
-                                    <td class="text-right">
-                                        <t t-esc="'{:.2f}'.format(line.get('Total Allowance', 0))"/>
                                     </td>
                                 </tr>
                             </t>
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="9" class="text-right">
+                                <td colspan="7" class="text-right">
                                     <strong>Total Net Wage:</strong>
                                 </td>
                                 <td class="text-right">
@@ -135,6 +125,19 @@
                             </tr>
                         </tfoot>
                     </table>
+                    <div class="row mb-4">
+                        <div class="col-6">
+                            <img align="center"
+                                             t-if="sign"
+                                             t-attf-src="data:image/jpeg;base64,#{sign}"
+                                             t-att-alt="Image"
+                                             style="width:500px;"
+                                        />
+                        </div>
+                        <div class="col-6 text-right">
+
+                        </div>
+                    </div>
                 </div>
             </t>
         </t>

@@ -10,8 +10,8 @@
                     <field name="end_date" readonly="1"/>
                 </group>
                 <footer>
-                    <button id="button_print" type="object" name="action_print_pdf_report" string="Print PDF"
-                            class='btn-primary'/>
+<!--                    <button id="button_print" type="object" name="action_print_pdf_report" string="Print PDF"-->
+<!--                            class='btn-primary'/>-->
                     <button id="button_print" type="object" name="action_print_xlsx_report"
                             string="Print XLSX" class='btn-primary'/>
                     <button string="Cancel" class="btn btn-secondary" special="cancel" data-hotkey="z"/>
